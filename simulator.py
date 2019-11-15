@@ -8,6 +8,8 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+################################################################################################
+#User code
 from PyQt5.QtCore import Qt
 from assembler import Assembler
 import os
@@ -15,7 +17,7 @@ import os
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1153, 649)
+        MainWindow.resize(993, 649)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
@@ -25,47 +27,90 @@ class Ui_MainWindow(object):
         self.label.setFont(font)
         self.label.setAutoFillBackground(False)
         self.label.setObjectName("label")
-        self.browsButton = QtWidgets.QPushButton(self.centralwidget)
-        self.browsButton.setGeometry(QtCore.QRect(360, 10, 51, 31))
-        self.browsButton.setObjectName("browsButton")
+        self.browsAssembly = QtWidgets.QPushButton(self.centralwidget)
+        self.browsAssembly.setGeometry(QtCore.QRect(360, 10, 51, 31))
+        self.browsAssembly.setObjectName("browsAssembly")
         self.duration = QtWidgets.QSpinBox(self.centralwidget)
-        self.duration.setGeometry(QtCore.QRect(180, 590, 81, 31))
+        self.duration.setGeometry(QtCore.QRect(730, 560, 80, 30))
         self.duration.setMinimum(1)
-        self.duration.setMaximum(1000)
+        self.duration.setMaximum(10000)
+        self.duration.setSingleStep(10)
         self.duration.setProperty("value", 100)
         self.duration.setObjectName("duration")
         self.assemblyEditor = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.assemblyEditor.setGeometry(QtCore.QRect(30, 50, 380, 490))
+        self.assemblyEditor.setGeometry(QtCore.QRect(30, 50, 380, 350))
         self.assemblyEditor.setAcceptDrops(False)
         self.assemblyEditor.setObjectName("assemblyEditor")
         self.assembleButton = QtWidgets.QPushButton(self.centralwidget)
-        self.assembleButton.setGeometry(QtCore.QRect(490, 280, 151, 61))
+        self.assembleButton.setGeometry(QtCore.QRect(420, 210, 151, 61))
         self.assembleButton.setObjectName("assembleButton")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(830, 10, 131, 31))
+        self.label_2.setGeometry(QtCore.QRect(730, 10, 131, 31))
         font = QtGui.QFont()
         font.setPointSize(13)
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
-        self.simulate = QtWidgets.QPushButton(self.centralwidget)
-        self.simulate.setGeometry(QtCore.QRect(40, 590, 93, 28))
-        self.simulate.setObjectName("simulate")
+        self.simulateButton = QtWidgets.QPushButton(self.centralwidget)
+        self.simulateButton.setGeometry(QtCore.QRect(620, 560, 93, 28))
+        self.simulateButton.setObjectName("simulateButton")
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
-        self.label_3.setGeometry(QtCore.QRect(190, 560, 71, 16))
+        self.label_3.setGeometry(QtCore.QRect(730, 540, 80, 16))
+        self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setObjectName("label_3")
-        self.textBrowser = QtWidgets.QTextBrowser(self.centralwidget)
-        self.textBrowser.setGeometry(QtCore.QRect(740, 50, 380, 490))
-        self.textBrowser.setObjectName("textBrowser")
+        self.machineCode = QtWidgets.QTextBrowser(self.centralwidget)
+        self.machineCode.setGeometry(QtCore.QRect(590, 50, 380, 350))
+        self.machineCode.setObjectName("machineCode")
+        self.browsProjects = QtWidgets.QPushButton(self.centralwidget)
+        self.browsProjects.setGeometry(QtCore.QRect(50, 510, 41, 31))
+        self.browsProjects.setObjectName("browsProjects")
+        self.libraryName = QtWidgets.QPlainTextEdit(self.centralwidget)
+        self.libraryName.setGeometry(QtCore.QRect(200, 550, 140, 40))
+        self.libraryName.setAcceptDrops(False)
+        self.libraryName.setObjectName("libraryName")
+        self.moduleName = QtWidgets.QPlainTextEdit(self.centralwidget)
+        self.moduleName.setGeometry(QtCore.QRect(350, 550, 140, 40))
+        self.moduleName.setAcceptDrops(False)
+        self.moduleName.setObjectName("moduleName")
+        self.label_4 = QtWidgets.QLabel(self.centralwidget)
+        self.label_4.setGeometry(QtCore.QRect(99, 510, 91, 31))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.label_4.setFont(font)
+        self.label_4.setAutoFillBackground(False)
+        self.label_4.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_4.setObjectName("label_4")
+        self.label_5 = QtWidgets.QLabel(self.centralwidget)
+        self.label_5.setGeometry(QtCore.QRect(200, 510, 140, 31))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.label_5.setFont(font)
+        self.label_5.setAutoFillBackground(False)
+        self.label_5.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_5.setObjectName("label_5")
+        self.label_6 = QtWidgets.QLabel(self.centralwidget)
+        self.label_6.setGeometry(QtCore.QRect(350, 510, 140, 31))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.label_6.setFont(font)
+        self.label_6.setAutoFillBackground(False)
+        self.label_6.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_6.setObjectName("label_6")
+        self.projectName = QtWidgets.QTextBrowser(self.centralwidget)
+        self.projectName.setGeometry(QtCore.QRect(50, 550, 140, 40))
+        self.projectName.setObjectName("projectName")
         MainWindow.setCentralWidget(self.centralwidget)
 
-        
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-################################################################################################
-#User code
-        self.browsButton.clicked.connect(self.browsClicked)
+
+        ################################################################################################
+        #User code
+        self.browsAssembly.clicked.connect(self.browsAssemblyClicked)
         self.assembleButton.clicked.connect(self.assembleClicked)
-        self.simulate.clicked.connect(self.simulateClicked)
+        self.simulateButton.clicked.connect(self.simulateClicked)
+        self.browsProjects.clicked.connect(self.browsProjectsClicked)
+
+        self.projectPath = ""
 
         
 
@@ -73,11 +118,16 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "Assembly"))
-        self.browsButton.setText(_translate("MainWindow", "Brows"))
+        self.browsAssembly.setText(_translate("MainWindow", "Brows"))
         self.assembleButton.setText(_translate("MainWindow", "Assemble >>"))
         self.label_2.setText(_translate("MainWindow", "MachineCode"))
-        self.simulate.setText(_translate("MainWindow", "Simulate"))
+        self.simulateButton.setText(_translate("MainWindow", "Simulate"))
         self.label_3.setText(_translate("MainWindow", "Duration Us"))
+        self.browsProjects.setText(_translate("MainWindow", "Brows"))
+        self.label_4.setText(_translate("MainWindow", "project"))
+        self.label_5.setText(_translate("MainWindow", "Library"))
+        self.label_6.setText(_translate("MainWindow", "Module"))
+        self.libraryName.setPlainText(_translate("MainWindow", "work"))
 
 ################################################################################################
 #User code
@@ -87,33 +137,42 @@ class Ui_MainWindow(object):
         Assembler("assembly.asm", "binaryCode.txt")
 
         with open ("binaryCode.txt", 'r') as binaryFile:
-            self.textBrowser.setPlainText(binaryFile.read())
+            self.machineCode.setPlainText(binaryFile.read())
 
-    def browsClicked(self):
+    def browsAssemblyClicked(self):
         text = ""
         name, _ = QtWidgets.QFileDialog.getOpenFileName(MainWindow, 'Open File')
-        with open(name, 'r') as file:
-            text = file.read()
-        self.assemblyEditor.setPlainText(text)
+        if name: 
+            with open(name, 'r') as file:
+                text = file.read()
+            self.assemblyEditor.setPlainText(text)
+
+    def browsProjectsClicked(self):
+        # name, _ = QtWidgets.QFileDialog.getOpenFileName(MainWindow, 'Open File')
+        # print(name)
+
+        qfd = QtWidgets.QFileDialog()
+        self.projectPath, _ = QtWidgets.QFileDialog.getOpenFileName(qfd, "Brows projects", os.path.dirname(os.path.abspath(__file__)), "Modelsim(*.mpf)")
+
+        name = self.projectPath[self.projectPath.rfind('/') +1: self.projectPath.rfind('.')]
+        
+        self.projectName.setPlainText(name)
+        
 
     def simulateClicked(self):
         QtWidgets.QApplication.setOverrideCursor(Qt.WaitCursor)
-
         duration = self.duration.value()
-                
-        projectPath = 'D:/Education/University/3rdCSE/CO/Projects/MIPS/Mips/MipsProcessor.mpf'
 
-        library = 'work'
-        moduleName = 'FullAdderTest'
+        # library = 'work'
+        # moduleName = 'FullAdderTest'
 
         simulateCommand = 'vsim -do "project open {project}; vsim {library}.{module}; run {duration}; quit -f" -c'.format(
-            project=projectPath, library=library, module=moduleName, duration=duration)
+            project=self.projectPath, library=self.libraryName.toPlainText(),
+            module=self.moduleName.toPlainText(), duration=self.duration.value())
         os.system(simulateCommand)
         
         QtWidgets.QApplication.restoreOverrideCursor()
         
-
-
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
