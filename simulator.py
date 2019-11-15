@@ -8,7 +8,9 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import Qt
 from assembler import Assembler
+import os
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -28,7 +30,7 @@ class Ui_MainWindow(object):
         self.browsButton.setObjectName("browsButton")
         self.duration = QtWidgets.QSpinBox(self.centralwidget)
         self.duration.setGeometry(QtCore.QRect(180, 590, 81, 31))
-        self.duration.setMinimum(10)
+        self.duration.setMinimum(1)
         self.duration.setMaximum(1000)
         self.duration.setProperty("value", 100)
         self.duration.setObjectName("duration")
@@ -56,12 +58,16 @@ class Ui_MainWindow(object):
         self.textBrowser.setObjectName("textBrowser")
         MainWindow.setCentralWidget(self.centralwidget)
 
+        
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+################################################################################################
+#User code
         self.browsButton.clicked.connect(self.browsClicked)
         self.assembleButton.clicked.connect(self.assembleClicked)
         self.simulate.clicked.connect(self.simulateClicked)
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -73,6 +79,8 @@ class Ui_MainWindow(object):
         self.simulate.setText(_translate("MainWindow", "Simulate"))
         self.label_3.setText(_translate("MainWindow", "Duration Us"))
 
+################################################################################################
+#User code
     def assembleClicked(self):
         with open("assembly.asm", 'w') as asmFile:
             asmFile.write(self.assemblyEditor.toPlainText())
@@ -89,8 +97,20 @@ class Ui_MainWindow(object):
         self.assemblyEditor.setPlainText(text)
 
     def simulateClicked(self):
+        QtWidgets.QApplication.setOverrideCursor(Qt.WaitCursor)
+
         duration = self.duration.value()
-        print(duration)
+                
+        projectPath = 'D:/Education/University/3rdCSE/CO/Projects/MIPS/Mips/MipsProcessor.mpf'
+
+        library = 'work'
+        moduleName = 'FullAdderTest'
+
+        simulateCommand = 'vsim -do "project open {project}; vsim {library}.{module}; run {duration}; quit -f" -c'.format(
+            project=projectPath, library=library, module=moduleName, duration=duration)
+        os.system(simulateCommand)
+        
+        QtWidgets.QApplication.restoreOverrideCursor()
         
 
 
