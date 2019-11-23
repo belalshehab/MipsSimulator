@@ -1,3 +1,3 @@
-sll $s1,$s2,2
-lw $s1,10($s2)
-lw $s2,20($s1)
+addi $s0 ,$0, 0
+addi $s1 ,$0, 1
+addi $s2 ,$0, 2

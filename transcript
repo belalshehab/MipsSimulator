@@ -1,9 +1,108 @@
 # project open D:/Education/University/3rdCSE/CO/Projects/MIPS/Mips/MipsProcessor.mpf
 # Loading project MipsProcessor
-#  vsim work.FullAdderTest
-# vsim work.FullAdderTest 
-# Start time: 23:28:19 on Nov 15,2019
-# ** Note: (vsim-8009) Loading existing optimized design _opt2
+#  project compileall
+# vlog -work Education -vopt -stats=none D:/Education/University/3rdCSE/CO/Projects/MIPS/Mips/FullAdder.v
+# Model Technology ModelSim SE-64 vlog 10.6d Compiler 2018.02 Feb 24 2018
+# -- Compiling module FullAdder
+# -- Compiling module FullAdderTest
+# 
+# Top level modules:
+# 	FullAdderTest
+# vlog -work Education -vopt -stats=none D:/Education/University/3rdCSE/CO/Projects/MIPS/Mips/ALU.v
+# Model Technology ModelSim SE-64 vlog 10.6d Compiler 2018.02 Feb 24 2018
+# -- Compiling module Alu
+# -- Compiling module ExtendedAlu
+# -- Compiling module ALUTest
+# 
+# Top level modules:
+# 	ALUTest
+# vlog -work Education -vopt -stats=none D:/Education/University/3rdCSE/CO/Projects/MIPS/Mips/RegisterFile.v
+# Model Technology ModelSim SE-64 vlog 10.6d Compiler 2018.02 Feb 24 2018
+# -- Compiling module RegisterFile
+# -- Compiling module RegFileTest
+# 
+# Top level modules:
+# 	RegFileTest
+# vlog -work Education -vopt -stats=none D:/Education/University/3rdCSE/CO/Projects/MIPS/Mips/Clock.v
+# Model Technology ModelSim SE-64 vlog 10.6d Compiler 2018.02 Feb 24 2018
+# -- Compiling module Clock
+# 
+# Top level modules:
+# 	Clock
+# vlog -work Education -vopt -stats=none D:/Education/University/3rdCSE/CO/Projects/MIPS/Mips/Mux.v
+# Model Technology ModelSim SE-64 vlog 10.6d Compiler 2018.02 Feb 24 2018
+# -- Compiling module MuxTwoToOne32
+# -- Compiling module MuxTwoToOne5
+# -- Compiling module MuxTwoToOneTest
+# 
+# Top level modules:
+# 	MuxTwoToOne5
+# 	MuxTwoToOneTest
+# vlog -work Education -vopt -stats=none D:/Education/University/3rdCSE/CO/Projects/MIPS/Mips/SignExtend.v
+# Model Technology ModelSim SE-64 vlog 10.6d Compiler 2018.02 Feb 24 2018
+# -- Compiling module SignExtend
+# -- Compiling module SignExtendTest
+# 
+# Top level modules:
+# 	SignExtendTest
+# vlog -work Education -vopt -stats=none D:/Education/University/3rdCSE/CO/Projects/MIPS/Mips/Memory.v
+# Model Technology ModelSim SE-64 vlog 10.6d Compiler 2018.02 Feb 24 2018
+# -- Compiling module DataMemory
+# -- Compiling module InstructionMemory
+# -- Compiling module InstructionMemoryTest
+# -- Compiling module DataMemoryTest
+# 
+# Top level modules:
+# 	InstructionMemoryTest
+# 	DataMemoryTest
+# vlog -work Education -vopt -stats=none D:/Education/University/3rdCSE/CO/Projects/MIPS/Mips/Experimenting.v
+# Model Technology ModelSim SE-64 vlog 10.6d Compiler 2018.02 Feb 24 2018
+# -- Compiling module Test
+# -- Compiling module TestTest
+# 
+# Top level modules:
+# 	TestTest
+# vlog -work work -vopt -stats=none D:/Education/University/3rdCSE/CO/Projects/MIPS/Mips/Mips.v
+# Model Technology ModelSim SE-64 vlog 10.6d Compiler 2018.02 Feb 24 2018
+# -- Compiling module Mips
+# -- Compiling module MipsTest
+# 
+# Top level modules:
+# 	MipsTest
+# vlog -work work -vopt -stats=none D:/Education/University/3rdCSE/CO/Projects/MIPS/Mips/PC.v
+# Model Technology ModelSim SE-64 vlog 10.6d Compiler 2018.02 Feb 24 2018
+# -- Compiling module PC
+# -- Compiling module ExtendedPC
+# -- Compiling module PCTest
+# 
+# Top level modules:
+# 	PCTest
+# vlog -work work -vopt -stats=none D:/Education/University/3rdCSE/CO/Projects/MIPS/Mips/ControlUnit.v
+# Model Technology ModelSim SE-64 vlog 10.6d Compiler 2018.02 Feb 24 2018
+# -- Compiling module ControlUnit
+# -- Compiling module ControlUnit_tb
+# 
+# Top level modules:
+# 	ControlUnit_tb
+# vlog -work work -vopt -stats=none D:/Education/University/3rdCSE/CO/Projects/MIPS/Mips/ShiftRegister.v
+# Model Technology ModelSim SE-64 vlog 10.6d Compiler 2018.02 Feb 24 2018
+# -- Compiling module ShiftLeftRegister
+# -- Compiling module shiftRegTest
+# 
+# Top level modules:
+# 	shiftRegTest
+# vlog -work work -vopt -stats=none D:/Education/University/3rdCSE/CO/Projects/MIPS/Mips/AluControl.v
+# Model Technology ModelSim SE-64 vlog 10.6d Compiler 2018.02 Feb 24 2018
+# -- Compiling module AluControl
+# -- Compiling module tb_alu
+# 
+# Top level modules:
+# 	tb_alu
+# 13 compiles, 0 failed with no errors.
+#  vsim work.MipsTest
+# vsim work.MipsTest 
+# Start time: 00:56:33 on Nov 24,2019
+# ** Note: (vsim-8009) Loading existing optimized design _opt1
 # //  ModelSim SE-64 10.6d Feb 24 2018
 # //
 # //  Copyright 1991-2018 Mentor Graphics Corporation
@@ -17,10 +116,26 @@
 # //  is prohibited from disclosure under the Trade Secrets Act,
 # //  18 U.S.C. Section 1905.
 # //
-# Loading work.FullAdderTest(fast)
+# Loading work.MipsTest(fast)
 #  run 100
-#                    0           0,          0,          0
-#                    5           3,         20,         23
+#                    0  aluOut:         x, regData1:         x, regData2:         x, instruction:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+# regWriteData :          x
+#                    1  aluOut:        10, regData1:         0, regData2:         x, instruction:00100000000100000000000000001010
+# regWriteData :         10
+#                    3  aluOut:        10, regData1:         0, regData2:        10, instruction:00100000000100000000000000001010
+# regWriteData :         10
+#                   11  aluOut:        20, regData1:        10, regData2:         x, instruction:00100010000100010000000000001010
+# regWriteData :         20
+#                   13  aluOut:        10, regData1:         0, regData2:        20, instruction:10101100000100010000000000001010
+# regWriteData :         10
+#                   15  aluOut:        10, regData1:         0, regData2:         x, instruction:10001100000100100000000000001010
+# regWriteData :         20
+#                   17  aluOut:        30, regData1:        10, regData2:        20, instruction:00000010000100011001000000100000
+# regWriteData :         30
+#                   19  aluOut:         0, regData1:         0, regData2:        30, instruction:10101100000100100000000000000000
+# regWriteData :          0
+#                   21  aluOut:         x, regData1:         x, regData2:         x, instruction:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+# regWriteData :          x
 #  quit -f
-# End time: 23:28:20 on Nov 15,2019, Elapsed time: 0:00:01
+# End time: 00:56:34 on Nov 24,2019, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0

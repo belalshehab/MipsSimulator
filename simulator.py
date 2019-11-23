@@ -37,6 +37,13 @@ class Ui_MainWindow(object):
         self.duration.setSingleStep(10)
         self.duration.setProperty("value", 100)
         self.duration.setObjectName("duration")
+
+        #UserCode
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.duration.setFont(font)
+
+
         self.assemblyEditor = QtWidgets.QPlainTextEdit(self.centralwidget)
         self.assemblyEditor.setGeometry(QtCore.QRect(30, 50, 380, 350))
         self.assemblyEditor.setAcceptDrops(False)
@@ -44,6 +51,18 @@ class Ui_MainWindow(object):
         self.assembleButton = QtWidgets.QPushButton(self.centralwidget)
         self.assembleButton.setGeometry(QtCore.QRect(420, 210, 151, 61))
         self.assembleButton.setObjectName("assembleButton")
+        
+        #UserCode
+        font = QtGui.QFont()
+        font.setPointSize(13)
+        self.assembleButton.setFont(font)
+
+
+        #UserCode
+        font = QtGui.QFont()
+        font.setPointSize(13)
+        self.assemblyEditor.setFont(font)
+
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(730, 10, 131, 31))
         font = QtGui.QFont()
@@ -53,6 +72,13 @@ class Ui_MainWindow(object):
         self.simulateButton = QtWidgets.QPushButton(self.centralwidget)
         self.simulateButton.setGeometry(QtCore.QRect(620, 560, 93, 28))
         self.simulateButton.setObjectName("simulateButton")
+
+        #UserCode
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.simulateButton.setFont(font)
+
+
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(730, 540, 80, 16))
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
@@ -60,6 +86,12 @@ class Ui_MainWindow(object):
         self.machineCode = QtWidgets.QTextBrowser(self.centralwidget)
         self.machineCode.setGeometry(QtCore.QRect(590, 50, 380, 350))
         self.machineCode.setObjectName("machineCode")
+
+        font = QtGui.QFont()
+        font.setPointSize(13)
+        self.machineCode.setFont(font)
+
+
         self.browsProjects = QtWidgets.QPushButton(self.centralwidget)
         self.browsProjects.setGeometry(QtCore.QRect(50, 510, 41, 31))
         self.browsProjects.setObjectName("browsProjects")
@@ -71,6 +103,12 @@ class Ui_MainWindow(object):
         self.moduleName.setGeometry(QtCore.QRect(350, 550, 140, 40))
         self.moduleName.setAcceptDrops(False)
         self.moduleName.setObjectName("moduleName")
+
+        #UserCode
+        font = QtGui.QFont()
+        font.setPointSize(13)
+        self.moduleName.setFont(font)
+
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
         self.label_4.setGeometry(QtCore.QRect(99, 510, 91, 31))
         font = QtGui.QFont()
@@ -95,9 +133,15 @@ class Ui_MainWindow(object):
         self.label_6.setAutoFillBackground(False)
         self.label_6.setAlignment(QtCore.Qt.AlignCenter)
         self.label_6.setObjectName("label_6")
+
         self.projectName = QtWidgets.QTextBrowser(self.centralwidget)
         self.projectName.setGeometry(QtCore.QRect(50, 550, 140, 40))
         self.projectName.setObjectName("projectName")
+        #UserCode
+        font = QtGui.QFont()
+        font.setPointSize(13)
+        self.projectName.setFont(font)
+
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -111,12 +155,12 @@ class Ui_MainWindow(object):
         self.browsProjects.clicked.connect(self.browsProjectsClicked)
 
         self.projectPath = ""
-
-        
+        self.assemblyFilePath = ""
+        self.binaryFilePath = ""
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Simulator"))
         self.label.setText(_translate("MainWindow", "Assembly"))
         self.browsAssembly.setText(_translate("MainWindow", "Brows"))
         self.assembleButton.setText(_translate("MainWindow", "Assemble >>"))
@@ -129,28 +173,36 @@ class Ui_MainWindow(object):
         self.label_6.setText(_translate("MainWindow", "Module"))
         self.libraryName.setPlainText(_translate("MainWindow", "work"))
 
+        #UserCode
+        font = QtGui.QFont()
+        font.setPointSize(13)
+        self.libraryName.setFont(font)
+
 ################################################################################################
 #User code
-    def assembleClicked(self):
-        with open("assembly.asm", 'w') as asmFile:
-            asmFile.write(self.assemblyEditor.toPlainText())
-        Assembler("assembly.asm", "binaryCode.txt")
-
-        with open ("binaryCode.txt", 'r') as binaryFile:
-            self.machineCode.setPlainText(binaryFile.read())
-
+    
     def browsAssemblyClicked(self):
         text = ""
-        name, _ = QtWidgets.QFileDialog.getOpenFileName(MainWindow, 'Open File')
-        if name: 
-            with open(name, 'r') as file:
+        self.assemblyFilePath, _ = QtWidgets.QFileDialog.getOpenFileName(MainWindow, 'Open File')
+        print(self.assemblyFilePath)
+        if self.assemblyFilePath: 
+            with open(self.assemblyFilePath, 'r') as file:
                 text = file.read()
             self.assemblyEditor.setPlainText(text)
 
-    def browsProjectsClicked(self):
-        # name, _ = QtWidgets.QFileDialog.getOpenFileName(MainWindow, 'Open File')
-        # print(name)
+        self.binaryFilePath = self.assemblyFilePath[:self.assemblyFilePath.rfind('/') +1] + "binaryInstructions.txt"
 
+    def assembleClicked(self):
+        with open(self.assemblyFilePath, 'w') as asmFile:
+            asmFile.write(self.assemblyEditor.toPlainText())
+
+        
+        Assembler(self.assemblyFilePath,  self.binaryFilePath)
+
+        with open (self.binaryFilePath, 'r') as binaryFile:
+            self.machineCode.setPlainText(binaryFile.read())
+
+    def browsProjectsClicked(self):
         qfd = QtWidgets.QFileDialog()
         self.projectPath, _ = QtWidgets.QFileDialog.getOpenFileName(qfd, "Brows projects", os.path.dirname(os.path.abspath(__file__)), "Modelsim(*.mpf)")
 
@@ -161,12 +213,11 @@ class Ui_MainWindow(object):
 
     def simulateClicked(self):
         QtWidgets.QApplication.setOverrideCursor(Qt.WaitCursor)
-        duration = self.duration.value()
 
         # library = 'work'
         # moduleName = 'FullAdderTest'
-
-        simulateCommand = 'vsim -do "project open {project}; vsim {library}.{module}; run {duration}; quit -f" -c'.format(
+        # vsim -do "project open  D:/Education/University/3rdCSE/CO/Projects/MIPS/Mips/MipsProcessor.mpf; project compileall; vsim Education.FullAdderTest; run; vsim Education.MuxTwoToOneTest; run 5; quit -f" -c
+        simulateCommand = 'vsim -do "project open {project}; project compileall; vsim {library}.{module}; run {duration}; quit -f" -c'.format(
             project=self.projectPath, library=self.libraryName.toPlainText(),
             module=self.moduleName.toPlainText(), duration=self.duration.value())
         os.system(simulateCommand)

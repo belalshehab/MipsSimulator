@@ -54,7 +54,7 @@ class Assembler:
             'lw':  '100011',
             'beq': '000100',
             'addi': '001000',
-            'ori': '001101'
+            'ori': '001101',
         }
         try:
 
@@ -63,7 +63,7 @@ class Assembler:
                 op = line[0:line.find(" ")]
                 if op in self.func_map.keys():
                     self.R_parser(line, o)
-                elif op in self.i_map.keys():
+                if op in self.i_map.keys():
                     self.I_parser(line, o)
                 else:
                     self.J_parser(line, o)
@@ -74,8 +74,9 @@ class Assembler:
 
     def R_parser(self, line, o):
         opCode = '000000'
+        registers = line[line.find(" "):len(line)].replace(" ","").split(',')
         func = line[0:line.find(" ")]
-        registers = line[line.find(" ")+1:len(line)].split(',')
+      #  registers = line[line.find(" ")+1:len(line)].split(',')
         if(func == 'sll'):
             registers = {
                 'rs': '00000', 'shamt': '{0:05b}'.format(int(registers[2])), 'rd': registers[0], 'rt': registers[1]}
@@ -86,33 +87,50 @@ class Assembler:
                 'rs': registers[1], 'rt': registers[2], 'rd': registers[0], 'shamt': '00000'}
             instruction = '{}{}{}{}{}{}'.format(opCode,  self.registers_map[registers['rs']], self.registers_map[
                                                 registers['rt']], self.registers_map[registers['rd']], registers['shamt'], self.func_map[func])
-        o.write(instruction+'\n')
+        new_insts = instruction[0:8] + ','+instruction[8:16]+','+instruction[16:24] + ',' + instruction[24:32]
+        new_insts = new_insts.split(',')
+        for i in new_insts:
+            o.write(i + '\n')
 
     def I_parser(self, line, o):
         func = line[0:line.find(" ")]
         if func != 'sw' and func != 'lw':
-            registers = line[line.find(" ")+1:len(line)].split(',')
+            registers = line[line.find(" "):len(line)].replace(" ","").split(',')
+            #registers = line[line.find(" ")+1:len(line)].split(',')
             registers = {'rs': registers[0], 'rt': registers[1],
                          'val': '{0:016b}'.format(int(registers[2]))}
             instruction = '{}{}{}{}'.format(
                 self.i_map[func],  self.registers_map[registers['rt']], self.registers_map[registers['rs']], registers['val'])
         else:
-            registers = line[line.find(" ")+1:len(line)].split(',')
+            registers = line[line.find(" "):len(line)].replace(" ","").split(',')
+            #registers = line[line.find(" ")+1:len(line)].split(',')
             registers.append([x[0:x.find('(')] for x in registers][1])
             registers[1] = [x[x.find('$'):x.find(')')] for x in registers][1]
             registers = {'rt': registers[0], 'rs': registers[1], 'val': '{0:016b}'.format(
                 int(registers[2]))}
             instruction = '{}{}{}{}'.format(
                 self.i_map[func],  self.registers_map[registers['rs']], self.registers_map[registers['rt']], registers['val'])
+        new_insts = instruction[0:8] + ','+instruction[8:16]+','+instruction[16:24] + ',' + instruction[24:32]
+        new_insts = new_insts.split(',')
+        for i in new_insts:
+            o.write(i + '\n')                  
+                    
 
-        o.write(instruction+'\n')
 
     def J_parser(self, line, o):
-        pass
+        func = line[0:line.find(" ")]
+        if func == 'jal':
+            registers = line[line.find(" "):len(line)].replace(" ","").split(',')
+            #register = line[line.find(' ')+1 : len(line)].split(',')
+            instruction = '000011' + '{0:026b}'.format(int(register[0]))
+            new_insts = instruction[0:8] + ','+instruction[8:16]+','+instruction[16:24] + ',' + instruction[24:32]
+            new_insts = new_insts.split(',')
+            for i in new_insts:
+                o.write(i + '\n')
 
 
 def main():
-    file = 'mips1.asm'
+    file = 'assembly.asm'
     out = 'out.txt'
     assembler = Assembler(file, out)
 
