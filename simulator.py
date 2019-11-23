@@ -193,6 +193,11 @@ class Ui_MainWindow(object):
         self.binaryFilePath = self.assemblyFilePath[:self.assemblyFilePath.rfind('/') +1] + "binaryInstructions.txt"
 
     def assembleClicked(self):
+        if not self.assemblyFilePath:
+            self.assemblyFilePath = os.path.dirname(os.path.abspath(__file__)) + "\\assembly.asm"
+            self.binaryFilePath = self.assemblyFilePath[:self.assemblyFilePath.rfind('/') +1] + "binaryInstructions.txt"
+            
+        print (self.assemblyFilePath)
         with open(self.assemblyFilePath, 'w') as asmFile:
             asmFile.write(self.assemblyEditor.toPlainText())
 
