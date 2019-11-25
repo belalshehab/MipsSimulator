@@ -56,20 +56,23 @@ class Assembler:
             'addi': '001000',
             'ori': '001101',
         }
-        try:
-
-            for line in f:
-                line = line.replace("\n", "")
-                op = line[0:line.find(" ")]
-                if op in self.func_map.keys():
-                    self.R_parser(line, o)
-                if op in self.i_map.keys():
-                    self.I_parser(line, o)
-                else:
-                    self.J_parser(line, o)
-
-        except ValueError:
-            print('Error occurrs!')
+        self.j_map = {
+            'jal':'000011',
+            'j':  '000010'
+        }
+            
+        for line in f:
+            line = line.replace("\n", "")
+            op = line[0:line.find(" ")]
+            if op in self.func_map.keys():
+                self.R_parser(line, o)
+            elif op in self.i_map.keys():
+                self.I_parser(line, o)
+            elif op in self.j_map.keys():
+                self.J_parser(line, o)
+            else:
+                self.i_map[op]
+            
     # R-type parser function
 
     def R_parser(self, line, o):
@@ -122,11 +125,20 @@ class Assembler:
         if func == 'jal':
             registers = line[line.find(" "):len(line)].replace(" ","").split(',')
             #register = line[line.find(' ')+1 : len(line)].split(',')
-            instruction = '000011' + '{0:026b}'.format(int(register[0]))
+            instruction = '000011' + '{0:026b}'.format(int(registers[0]))
             new_insts = instruction[0:8] + ','+instruction[8:16]+','+instruction[16:24] + ',' + instruction[24:32]
             new_insts = new_insts.split(',')
             for i in new_insts:
                 o.write(i + '\n')
+        elif func == 'j':
+            registers = line[line.find(" "):len(line)].replace(" ","").split(',')
+            instruction = '000010' + '{0:026b}'.format(int(registers[0]))
+            new_insts = instruction[0:8] + ','+instruction[8:16]+','+instruction[16:24] + ',' + instruction[24:32]
+            new_insts = new_insts.split(',')
+            for i in new_insts:
+                o.write(i + '\n')
+
+
 
 
 def main():

@@ -101,8 +101,8 @@
 # 13 compiles, 0 failed with no errors.
 #  vsim work.MipsTest
 # vsim work.MipsTest 
-# Start time: 00:56:33 on Nov 24,2019
-# ** Note: (vsim-8009) Loading existing optimized design _opt1
+# Start time: 22:19:36 on Nov 25,2019
+# ** Note: (vsim-8009) Loading existing optimized design _opt2
 # //  ModelSim SE-64 10.6d Feb 24 2018
 # //
 # //  Copyright 1991-2018 Mentor Graphics Corporation
@@ -118,24 +118,7 @@
 # //
 # Loading work.MipsTest(fast)
 #  run 100
-#                    0  aluOut:         x, regData1:         x, regData2:         x, instruction:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-# regWriteData :          x
-#                    1  aluOut:        10, regData1:         0, regData2:         x, instruction:00100000000100000000000000001010
-# regWriteData :         10
-#                    3  aluOut:        10, regData1:         0, regData2:        10, instruction:00100000000100000000000000001010
-# regWriteData :         10
-#                   11  aluOut:        20, regData1:        10, regData2:         x, instruction:00100010000100010000000000001010
-# regWriteData :         20
-#                   13  aluOut:        10, regData1:         0, regData2:        20, instruction:10101100000100010000000000001010
-# regWriteData :         10
-#                   15  aluOut:        10, regData1:         0, regData2:         x, instruction:10001100000100100000000000001010
-# regWriteData :         20
-#                   17  aluOut:        30, regData1:        10, regData2:        20, instruction:00000010000100011001000000100000
-# regWriteData :         30
-#                   19  aluOut:         0, regData1:         0, regData2:        30, instruction:10101100000100100000000000000000
-# regWriteData :          0
-#                   21  aluOut:         x, regData1:         x, regData2:         x, instruction:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-# regWriteData :          x
-#  quit -f
-# End time: 00:56:34 on Nov 24,2019, Elapsed time: 0:00:01
+# ** Note: $finish    : D:/Education/University/3rdCSE/CO/Projects/MIPS/Mips/Mips.v(101)
+#    Time: 29 ns  Iteration: 1  Instance: /MipsTest
+# End time: 22:19:37 on Nov 25,2019, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0

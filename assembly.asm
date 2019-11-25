@@ -1,3 +1,6 @@
-addi $s0 ,$0, 0
-addi $s1 ,$0, 1
-addi $s2 ,$0, 2
+beq $t0,$0,6
+sub $s1,$s1,$s0
+addi $s0,$s0,1
+j 12
+sw $s0,0($s3
+sw $s1,4($s3)

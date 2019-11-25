@@ -197,15 +197,33 @@ class Ui_MainWindow(object):
             self.assemblyFilePath = os.path.dirname(os.path.abspath(__file__)) + "\\assembly.asm"
             self.binaryFilePath = self.assemblyFilePath[:self.assemblyFilePath.rfind('/') +1] + "binaryInstructions.txt"
             
-        print (self.assemblyFilePath)
+        
         with open(self.assemblyFilePath, 'w') as asmFile:
             asmFile.write(self.assemblyEditor.toPlainText())
 
-        
-        Assembler(self.assemblyFilePath,  self.binaryFilePath)
+        errorFlag = False
+        try:
+            Assembler(self.assemblyFilePath,  self.binaryFilePath)
+        except:
+            errorFlag = True
+            print("Syntax error")
 
         with open (self.binaryFilePath, 'r') as binaryFile:
             self.machineCode.setPlainText(binaryFile.read())
+            
+        if errorFlag is True:
+            count = 0
+            with open (self.binaryFilePath, 'r') as binaryFile: 
+                for line in binaryFile:
+                    count += 1
+            error_dialog = QtWidgets.QErrorMessage()
+            error_dialog.showMessage("Syntax error at {}".format(int(count /4 +1)))
+            error_dialog.exec_()
+            # self.assemblyEditor.setPlainText(self.assemblyEditor.toPlainText() +
+            #                     "\nSyntax error at {}".format(int(count /4 +1)))
+
+
+
 
     def browsProjectsClicked(self):
         qfd = QtWidgets.QFileDialog()
